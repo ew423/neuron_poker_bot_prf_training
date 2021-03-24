@@ -45,7 +45,7 @@ def command_line_parser():
         print("Using default log file")
         logfile = 'default'
     model_name = args['--name'] if args['--name'] else 'dqn1'
-    num_par_agents = args['--agents']
+    num_par_agents = args['--agents'] if args['--agents'] else 3
     screenloglevel = logging.INFO if not args['--screenloglevel'] else \
         getattr(logging, args['--screenloglevel'].upper())
     _ = get_config()
@@ -75,7 +75,7 @@ def command_line_parser():
             runner.equity_self_improvement(improvement_rounds)
 
         elif args['dqn_train']:
-            runner.dqn_train_keras_rl(model_name)
+            runner.dqn_train_keras_rl(num_par_agents, model_name)
 
         elif args['dqn_play']:
             runner.dqn_play_keras_rl(model_name)
